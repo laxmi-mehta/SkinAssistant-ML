@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Chatbot with Animated Scrollbar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end;
+            /* Align to the right */
+            align-items: flex-end;
+            /* Align to the bottom */
+            height: 100vh;
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            overflow: hidden;
+        }
+        
+        #chat-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: bounceIn 1s;
+        }
+        
+        #chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: bounceIn 1s;
+            transition: background-color 0.3s;
+        }
+        
+        #chat-icon:hover {
+            background-color: #45a049;
+        }
+        
+        #chat-box {
+            height: 250px;
+            overflow-y: scroll;
+            padding: 20px;
+            margin: 0;
+            animation: fadeIn 1s ease-in-out;
+            scrollbar-width: thin;
+            scrollbar-color: #4CAF50 transparent;
+        }
+        
+        #chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #chat-box::-webkit-scrollbar-thumb {
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        #chat-box::-webkit-scrollbar-thumb:hover {
+            background-color: #45a049;
+        }
+        
+        .message {
+            position: relative;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+            color: #333;
+            background-color: #f1f1f1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInMessage 0.5s;
+        }
+        
+        .bot-message {
+            background-color: #e0f7fa;
+            color: #00796b;
+            align-self: flex-start;
+        }
+        
+        .user-message {
+            background-color: #4caf50;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .options-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .option-button,button{
+            margin: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .option-button:hover {
+            background-color: #45a049;
+        }
+        
+        @keyframes bounceIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInMessage {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media only screen and (max-width: 600px) {
+            #chat-container {
+                width: 100%;
+                border-radius: 0;
+                bottom: 0;
+                right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div class="options-container" id="options-container"></div>
+    </div>
+    <div id="chat-icon">&#128172;</div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatIcon = document.getElementById('chat-icon');
+        const chatBox = document.getElementById('chat-box');
+        const optionsContainer = document.getElementById('options-container');
+
+        const script = [
+        {
+            message: "Hello! How can I assist you today?",
+            options: ["Option 1", "Option 2", "Option 3","Nearby Dermatologist"]
+        },
+        {
+            message: "I can provide information on various topics.",
+            options: ["Option A", "Option B", "Option C"]
+        },
+        {
+            message: "Feel free to ask me anything!",
+            options: ["Option X", "Option Y", "Option Z"]
+        }
+    ];
+    
+        let currentScriptIndex = 0;
+
+        function toggleChat() {
+            chatContainer.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function simulateChat() {
+            const currentMessage = script[currentScriptIndex];
+            appendMessage('Chatbot: ' + currentMessage.message, 'bot');
+            displayOptions(currentMessage.options);
+        }
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messageElement.classList.add('message');
+
+            if (sender === 'bot') {
+                messageElement.classList.add('bot-message');
+            } else {
+                messageElement.classList.add('user-message');
+            }
+
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function displayOptions(options) {
+            optionsContainer.innerHTML = '';
+
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button');
+                button.onclick = () => onOptionClick(option);
+
+                optionsContainer.appendChild(button);
+            });
+        }
+        function handleNearbyDermatologist() {
+            appendMessage('Chatbot: Please enter your zip code:', 'bot');
+            const zipCodeInput = document.createElement('input');
+            zipCodeInput.type = 'text';
+            const submitButton = document.createElement('button');
+            submitButton.textContent = 'Submit';
+        
+            submitButton.onclick = function () {
+                const zipCode = zipCodeInput.value;
+                const mapIframe = document.createElement('iframe');
+                mapIframe.width = '300';
+                mapIframe.height = '400';
+                mapIframe.frameborder = '0';
+                mapIframe.scrolling = 'no';
+                mapIframe.marginheight = '0';
+                mapIframe.marginwidth = '0';
+                mapIframe.src = `https://maps.google.com/maps?q=dermatologist+near+${zipCode}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+                appendMessage('Chatbot: Here is the map:', 'bot');
+                chatBox.appendChild(mapIframe);
+        
+                zipCodeInput.remove();
+                submitButton.remove();
+            };
+        
+            optionsContainer.appendChild(zipCodeInput);
+            optionsContainer.appendChild(submitButton);
+        }
+        
+
+        function onOptionClick(selectedOption) {
+            appendMessage('You selected: ' + selectedOption, 'user');
+        
+            if (selectedOption === 'Nearby Dermatologist') {
+                handleNearbyDermatologist();
+                return;
+            }
+        
+            currentScriptIndex++;
+            if (currentScriptIndex < script.length) {
+                setTimeout(simulateChat, 1000);
+            } else {
+                setTimeout(() => {
+                    appendMessage('Chatbot: That concludes our conversation. Thank you!', 'bot');
+                    optionsContainer.innerHTML = ''; // Clear options
+                }, 1000);
+            }
+        }
+        
+        chatIcon.addEventListener('click', toggleChat);
+        window.onload = simulateChat;
+    </script>
+</body>
+
+</html>

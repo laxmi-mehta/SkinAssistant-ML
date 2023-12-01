@@ -1,0 +1,161 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700');
+header .active a{
+    background-color: red;
+}
+ * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Gilroy';
+    font-size: 20px;
+} 
+:root {
+    --primary-color:#edf2fc;
+    --secondary-color:gray;
+  } 
+#chat-container {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    animation: bounceIn 1s;
+}
+
+#chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    animation: bounceIn 1s;
+    transition: background-color 0.3s;
+}
+
+#chat-icon:hover {
+    background-color: #45a049;
+}
+
+#chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    padding: 20px;
+    margin: 0;
+    animation: fadeIn 1s ease-in-out;
+    scrollbar-width: thin;
+    scrollbar-color: #4CAF50 transparent;
+}
+
+#chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background-color: #4CAF50;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: #45a049;
+}
+
+.message {
+    position: relative;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+    color: #333;
+    background-color: #f1f1f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeInMessage 0.5s;
+}
+
+.bot-message {
+    background-color: #e0f7fa;
+    color: #00796b;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: #4caf50;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.options-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.option-button,button{
+    margin: 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.option-button:hover {
+    background-color: #45a049;
+}
+
+@keyframes bounceIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #chat-container {
+        width: 100%;
+        border-radius: 0;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+ 

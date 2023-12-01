@@ -1,0 +1,52 @@
+{% load static%}
+<!--footer here-->
+
+<link href='{% static 'css/footer.css' %}' rel='stylesheet'/>
+ <link href='{% static 'css/img.css' %}' rel='stylesheet'/>
+ <link href='{% static 'css/main.css' %}' rel='stylesheet'/>
+
+<section id="contactus">
+  <footer class="footer-distributed">
+    <div class="footer-left">
+      <h3>
+        <img src='{% static 'img/logo.png' %}' alt='LOGO' id='logo' /> Skin
+        Assist
+      </h3>
+
+      <p class="footer-links">
+        <a href="{% url 'home' %}" class="link-1">Home</a>
+
+        <a href="{% url 'about' %}">About</a>
+
+        <a href="#contactus">Contact</a>
+        <a href="{% url 'policy' %}">Privacy Policy</a>
+        <a href="{% url 'terms' %}">Terms and condition</a>
+      </p>
+
+      <p class="footer-company-name">
+        Copyright @ 2023 <strong> Skin Assist </strong> All rights reserved
+      </p>
+    </div>
+
+    <div class="footer-center">
+      <div>
+        <p>
+          If you have any question about<br />
+          our Skin Assist system - contact with us <br />through email:
+        </p>
+      </div>
+      <br />
+      <div>
+        <a href="mailto:support@skin-assist.com">skinassist@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <p class="footer-company-about">
+        <span>About the company</span>
+        Skin Assist is not intended to perform diagnosis, but rather to provide
+        users the ability to image, track, and better understand their moles.
+      </p>
+    </div>
+  </footer>
+</section>

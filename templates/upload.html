@@ -1,0 +1,95 @@
+{% extends 'base.html'%} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Camera App</title>
+    <link href='{% static 'css/main.css' %}' rel='stylesheet'/>
+
+</head>
+<body>
+    <h1>Camera Feed</h1>
+
+    <div id="camera-feed" style="display: none;">
+        <video id="video" autoplay playsinline style="width: 100%; height: auto;"></video>
+        <button id="capture" class="btn btn-primary ">Capture</button>
+        <button id="close-camera" class="btn btn-primary ">Close Camera</button>
+    </div>
+
+    <input type="file" id="image-upload" accept="image/*" >
+    
+    <div id="image-preview" style="display: none;">
+        <img id="captured-image" style="max-width: 100%; max-height: 300px;">
+        <button id="upload-image" class="btn btn-primary ">Upload Image</button><br/>
+        <button id="retake-image" class="btn btn-primary ">Retake</button>
+    </div>
+
+    <script>
+        const startCameraButton = document.createElement('button');
+        startCameraButton.textContent = 'Start Camera';
+        document.body.appendChild(startCameraButton);
+
+        startCameraButton.addEventListener('click', () => {
+            startCameraButton.style.display = 'none';
+            document.getElementById('camera-feed').style.display = 'block';
+
+            const video = document.getElementById('video');
+            const captureButton = document.getElementById('capture');
+            const closeCameraButton = document.getElementById('close-camera');
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((error) => {
+                    console.error('Error accessing camera:', error);
+                });
+
+            captureButton.addEventListener('click', () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                const capturedImage = document.getElementById('captured-image');
+                capturedImage.src = canvas.toDataURL('image/jpeg');
+                document.getElementById('image-preview').style.display = 'block';
+            });
+
+            closeCameraButton.addEventListener('click', () => {
+                document.getElementById('camera-feed').style.display = 'none';
+                video.srcObject.getTracks()[0].stop(); // Stop the camera stream
+                startCameraButton.style.display = 'block';
+            });
+        });
+
+        // Handling image upload
+        const imageUploadInput = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadImageButton = document.getElementById('upload-image');
+        const retakeImageButton = document.getElementById('retake-image');
+
+        imageUploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const image = document.getElementById('captured-image');
+                image.src = URL.createObjectURL(file);
+                imagePreview.style.display = 'block';
+            }
+        });
+
+        uploadImageButton.addEventListener('click', () => {
+            // Handle the image upload to your server here
+            // You can use JavaScript or a form submission to send the image to your Django backend.
+            // You may need to use a Django form to handle the file upload.
+        });
+
+        retakeImageButton.addEventListener('click', () => {
+            imageUploadInput.value = ''; // Clear the file input
+            imagePreview.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

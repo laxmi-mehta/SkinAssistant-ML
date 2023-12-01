@@ -1,0 +1,299 @@
+{% extends 'base.html'%} {% load static %} {% block content %}  
+ <link href='{% static 'css/img.css' %}' rel='stylesheet'/> 
+ <link href='{% static 'css/header.css' %}' rel='stylesheet'/> 
+ {% comment %}
+<section id="home">
+  <!--Home here-->
+  <div id="header-image-menu">
+    <link href='{% static 'css/img.css' %}' rel='stylesheet'/>
+    <section id="home">
+      <div class="carousel-inner container">
+        <div class="carousel-item active">
+          <img
+            src="{%static 'img/skin.jpg' %}"
+            class="d-block w-100"
+            alt="..."
+            id="home"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h1>Skin Assist</h1>
+            <br />
+            <h4>Say no to disease!</h4>
+            <h4>
+              Check your skin on the smartphone and get instant <br />
+              results within 1 minute.
+            </h4>
+            <br />
+            <a href="{% url 'check' %}" class="nav-link">
+              <button type="button" class="btn btn-danger">
+                Check your skin now!
+              </button></a
+            >
+          </div>
+        </div>style="background-image: url("{% static "img/skin.jpg" %}");"
+      </div>
+    </section>style="font-size:clamp(2.5rem,1.0774rem + 3.7936vw, 5.625rem)
+    {% endcomment %}
+   <section id="home">
+ 
+  <div class='bgma'>
+  <div class="section">
+ <h1>Skin Assist<br><br></h1><p >Say no to disease!</p>
+     <p >Check your skin on the smartphone <br /></p>
+    <p>and get instant results within 1 minute.</p>
+    <a href="{% url 'check' %}" class="btn">Check your skin now!</a>
+  </div>
+</div>
+</section>
+
+<br /><br /><br /><br /><br /><br /><br />
+<!--Features here-->
+<section class="features" id="features">
+  <h3 class="text-center">Why is Skin Assist worth using?</h3>
+  <div class="container overflow-hidden text-center">
+    <div class="row gx-5">
+      <div class="col">
+        <div class="p-3">
+          <p><b>Smart</b></p>
+          <img src='{% static 'img/smart.png' %}' alt=' SMart Image' id='imga'/>
+          <p>
+            Skin-assist is a smart dermatologist app that can analyze uploaded
+            skin images to provide preliminary assessments,helping users
+            understand their skin conditions.
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <p><b>Simple</b></p>
+          <img src='{% static 'img/simple.jpg' %}' alt=' SMart Image'
+          id='imga'/>
+          <p>
+            You bring the phone to a mole or other formation on the skin, and in
+            1 minute you will know if there is any reason for concern.It also
+            suggests home-remedies and precautions.
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <p><b>Free And Open Source</b></p>
+          <img src='{% static 'img/free.png' %}' alt=' SMart Image' id='imga' />
+          <p>
+            Skin Assist is available anytime, anywhere without any cost. Keep
+            your health in check at your fingertips even when you are on the go.
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <p><b>Chat-Bot Supports</b></p>
+          <img src='{% static 'img/chat.png' %}' alt=' SMart Image' id='imga' />
+          <p>
+            Skin Assist features a smart CHAT-BOT to answer frequently asked
+            questions asked by Users. Also, the user can easily access near by
+            dermatologist location by giving just the pincode of the area.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br />
+<br />
+<!--Working here-->
+
+<section class="working" id="working">
+  <h3 class="text-center">How to use Skin Assist?</h3>
+  <div class="container overflow-hidden text-center">
+    <div class="row gx-5">
+      <div class="col">
+        <div class="p-3">
+          <p><b>Take a photo*</b></p>
+          <img src='{% static 'img/take.jpg' %}' alt=' SMart Image' id='imga' />
+          <p>
+            Keep zoomed at the closest distance (less than 10 cm), keep in focus
+            and center only the skin mark (without hair, wrinkles and other
+            objects)
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <p><b>Identify and send</b></p>
+          <img src='{% static 'img/save.png' %}' alt=' SMart Image' id='imga' />
+          <p>
+            Send your photo and then the system will analyze it and send you a
+            risk assessment.
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <p><b>Receive your risk assessment **</b></p>
+          <img src='{% static 'img/save.png' %}' alt=' SMart Image' id='imga' />
+          <p>
+            Get the result within 60 seconds and related advice on the next
+            steps to take.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br />
+<br /><br />
+
+<div id="chat-container">
+  <div id="chat-box"></div>
+  <div class="options-container" id="options-container"></div>
+</div>
+<div id="chat-icon">&#128172;</div>
+
+<script>
+  const chatContainer = document.getElementById('chat-container');
+  const chatIcon = document.getElementById('chat-icon');
+  const chatBox = document.getElementById('chat-box');
+  const optionsContainer = document.getElementById('options-container');
+
+  const script = [
+  {
+      message: "Hello! How can I assist you today?",
+      options: ["Option 1", "Option 2", "Option 3", "Nearby Dermatologist"]
+  },
+  {
+      message: "I can provide information on various topics.",
+      options: ["Option A", "Option B", "Option C"]
+  },
+  {
+      message: "Feel free to ask me anything!",
+      options: ["Option X", "Option Y", "Option Z"]
+  }
+];
+
+  let currentScriptIndex = 0;
+
+  function toggleChat() {
+      chatContainer.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function simulateChat() {
+      const currentMessage = script[currentScriptIndex];
+      appendMessage('Chatbot: ' + currentMessage.message, 'bot');
+      displayOptions(currentMessage.options);
+  }
+
+  function appendMessage(message, sender) {
+      const messageElement = document.createElement('div');
+      messageElement.textContent = message;
+      messageElement.classList.add('message');
+
+      if (sender === 'bot') {
+          messageElement.classList.add('bot-message');
+      } else {
+          messageElement.classList.add('user-message');
+      }
+
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function displayOptions(options) {
+      optionsContainer.innerHTML = '';
+
+      options.forEach((option, index) => {
+          const button = document.createElement('button');
+          button.textContent = option;
+          button.classList.add('option-button');
+          button.onclick = () => onOptionClick(option);
+
+          optionsContainer.appendChild(button);
+      });
+  }
+  function handleNearbyDermatologist() {
+      appendMessage('Chatbot: Please enter your zip code:', 'bot');
+      const zipCodeInput = document.createElement('input');
+      zipCodeInput.type = 'text';
+      const submitButton = document.createElement('button');
+      submitButton.textContent = 'Submit';
+  
+      submitButton.onclick = function () {
+          const zipCode = zipCodeInput.value;
+          const mapIframe = document.createElement('iframe');
+          mapIframe.width = '300';
+          mapIframe.height = '400';
+          mapIframe.frameborder = '0';
+          mapIframe.scrolling = 'no';
+          mapIframe.marginheight = '0';
+          mapIframe.marginwidth = '0';
+          mapIframe.src = `https://maps.google.com/maps?q=dermatologist+near+${zipCode}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+          appendMessage('Chatbot: Here is the map:', 'bot');
+          chatBox.appendChild(mapIframe);
+  
+          zipCodeInput.remove();
+          submitButton.remove();
+      };
+  
+      optionsContainer.appendChild(zipCodeInput);
+      optionsContainer.appendChild(submitButton);
+  }
+  
+
+  function onOptionClick(selectedOption) {
+      appendMessage('You selected: ' + selectedOption, 'user');
+  
+      if (selectedOption === 'Nearby Dermatologist') {
+          handleNearbyDermatologist();
+          return;
+      }
+  
+      currentScriptIndex++;
+      if (currentScriptIndex < script.length) {
+          setTimeout(simulateChat, 1000);
+      } else {
+          setTimeout(() => {
+              appendMessage('Chatbot: That concludes our conversation. Thank you!', 'bot');
+              optionsContainer.innerHTML = ''; // Clear options
+          }, 1000);
+      }
+  }
+  
+  chatIcon.addEventListener('click', toggleChat);
+  window.onload = simulateChat;
+</script>
+
+{% comment %} 
+<!-- Chatbot-->
+<div id="generate-form">
+  <label for="zipcode">Enter Zip Code:</label>
+  <input type="text" id="zipcode" required>
+  <button id="generate-button">Generate Map Link</button>
+</div>
+
+<div class="gmap-container" style="display: none;">
+  <h1>Generated Google Maps Link:</h1>
+  <iframe width="820" height="560" id="gmap_canvas" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const generateButton = document.getElementById("generate-button");
+      const gmapContainer = document.querySelector(".gmap-container");
+      const gmapIframe = document.getElementById("gmap_canvas");
+
+      generateButton.addEventListener("click", function () {
+          const zipcode = document.getElementById("zipcode").value;
+
+          // Construct the Google Maps URL based on the user's input
+          const gmapUrl = `https://maps.google.com/maps?q=dermatologist+near+${zipcode}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+
+          // Update the src attribute of the iframe
+          gmapIframe.src = gmapUrl;
+
+          // Show the map container
+          gmapContainer.style.display = "block";
+      });
+  });
+</script> {% endcomment %}
+
+{% endblock %}
