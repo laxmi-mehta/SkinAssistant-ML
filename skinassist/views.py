@@ -1,5 +1,9 @@
 from django.http import HttpResponse
+#from .models import FeedBack
 from django.shortcuts import render
+
+
+
 
 def homePage(request):
     return render(request,'index.html')
@@ -16,3 +20,15 @@ def upload(request):
 
 def agree(request):
     return render(request,'agree.html')
+
+def feedback(request):
+    if request.method=="POST":
+        name=request.POST['name']
+        email=request.POST['email']
+        feedback=request.POST['feedback']
+        obj=Feedback(name=name,email=email,feedback=feedback)
+        obj.save()
+        return HttpResponse("<h1>Form page submitted</h1>")
+
+        
+    return render(request,'feedback.html')

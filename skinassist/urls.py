@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from skinassist import views
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +28,7 @@ urlpatterns = [
          path('terms/',views.terms,name='terms'),
          path('upload/',views.upload,name='upload'),
          path('agree/',views.agree,name='agree'),
+         path('feedback/',views.feedback,name='feedback'),
            
          
 ]

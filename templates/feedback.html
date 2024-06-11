@@ -1,0 +1,30 @@
+{% extends 'base.html'%}  {% block content %}{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='{% static 'css/feedback.css' %}' rel='stylesheet'/>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Skin Assist </h1>
+       <p>Feedback Form</p> 
+        <form method='post' action='.'>
+             {% csrf_token %}
+            <input type="text" name="name" id="" placeholder="Enter your name" required>
+           
+            <input type="email" name="email" id="exampleInputEmail" placeholder="Enter your email" required>
+           
+            <textarea name="feedback" id="exampleInputEmail" cols="30" rows="10" placeholder="Enter other information here" required></textarea>
+           <div class="btn"> <button class="btn1">Submit</button>
+          
+        </form>
+        <button class="btn1" onclick="window.location='www.google.com' ">Close</button>    
+    </div>
+    </div> 
+    <script></script> 
+</body>
+</html>
+{% endblock %}
