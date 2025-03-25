@@ -1,34 +1,23 @@
-"""
-URL configuration for skinassist project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from skinassist import views
-from . import views
+from django.urls import path, include
+from skintestApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.homePage,name='home'),
-     path('aboutus/',views.aboutus,name='about'),
-      path('check/',views.check,name='check'),
-       path('policy/',views.policy,name='policy'),
-         path('terms/',views.terms,name='terms'),
-         path('upload/',views.upload,name='upload'),
-         path('agree/',views.agree,name='agree'),
-         path('feedback/',views.feedback,name='feedback'),
-           
-         
+    path('', views.homePage, name='home'),
+    path('aboutus/', views.aboutus, name='about'),
+    path('check/', views.check, name='check'),
+    path('policy/', views.policy, name='policy'),
+    path('terms/', views.terms, name='terms'),
+    path('upload/', views.upload, name='upload'),
+     path('agree/',views.agree,name='agree'),
+    path('detect_skin_disease/', views.detect_skin_disease, name='detect_skin_disease'),  # Add this line
+    path('skin_detection_view/', views.skin_detection_view, name='skin.detection_view'),
 ]
+
+# Add the following lines at the end to serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
